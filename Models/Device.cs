@@ -1,61 +1,32 @@
+using System;
+
 namespace SAD_lab1.Models
 {
     public abstract class Device
     {
         public string Name { get; set; }
-        public bool IsPowerOn { get; set; }
+        public bool IsPowerOn { get; protected set; }
         public bool IsSoftwareInstalled { get; set; }
         public bool IsConnectedToNetwork { get; set; }
-        public bool IsExternalDevicesConnected { get; set; }
 
-       
-        public event Action<string> OnDeviceStatusChanged = delegate { };
 
-        
-        public Device(string name)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name), "Name cannot be null");
-            OnDeviceStatusChanged = delegate { }; 
-        }
+        public event EventHandler<DeviceEventArgs> StatusChanged;
 
-       
+        public Device(string name) => Name = name;
+
+        protected void Notify(string message) 
+            => StatusChanged?.Invoke(this, new DeviceEventArgs(message));
+
         public virtual void TurnOn()
         {
-            if (IsSoftwareInstalled && IsConnectedToNetwork && IsExternalDevicesConnected)
+            if (IsSoftwareInstalled && IsConnectedToNetwork)
             {
                 IsPowerOn = true;
-                RaiseDeviceStatusChanged($"{Name} is now ON (No power required).");
+                Notify($"{Name} увімкнено.");
             }
-            else
-            {
-                RaiseDeviceStatusChanged($"Cannot turn on {Name}. Check the software, network connection, and external devices.");
-            }
+            else Notify($"Помилка: {Name} потребує ПЗ та мережі.");
         }
 
-       
-        public virtual void TurnOff()
-        {
-            IsPowerOn = false;
-            RaiseDeviceStatusChanged($"{Name} is now OFF.");
-        }
-
-        
-        public virtual void Use()
-        {
-            if (IsPowerOn)
-            {
-                RaiseDeviceStatusChanged($"{Name} is in use.");
-            }
-            else
-            {
-                RaiseDeviceStatusChanged($"{Name} cannot be used. It is powered off.");
-            }
-        }
-
-        
-        protected void RaiseDeviceStatusChanged(string message)
-        {
-            OnDeviceStatusChanged?.Invoke(message);
-        }
+        public abstract void PerformAction(string action);
     }
 }

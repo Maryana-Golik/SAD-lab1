@@ -2,39 +2,28 @@ namespace SAD_lab1.Models
 {
     public class BatteryDevice : Device
     {
-        public int BatteryCapacity { get; set; }  
+        public int BatteryCapacity { get; set; }
+        private IDischargeStrategy _dischargeStrategy;
 
-        public BatteryDevice(string name, int batteryCapacity) : base(name)
+        public BatteryDevice(string name, int capacity) : base(name)
         {
-            BatteryCapacity = batteryCapacity;
+            BatteryCapacity = capacity;
+            _dischargeStrategy = new NormalUsageStrategy(); 
         }
 
-        public void CheckBatteryStatus()
+        public void SetUsageStrategy(IDischargeStrategy strategy) 
+            => _dischargeStrategy = strategy;
+
+        public void ShowEstimatedTime()
         {
-            if (BatteryCapacity > 0)
-            {
-                RaiseDeviceStatusChanged($"Battery capacity: {BatteryCapacity}mAh.");
-            }
-            else
-            {
-                RaiseDeviceStatusChanged($"Battery is empty! Please recharge.");
-                TurnOff();
-            }
+            int hours = _dischargeStrategy.CalculateHours(BatteryCapacity);
+            Notify($"Орієнтовний час роботи: {hours} год.");
         }
 
-        public void CalculateUsageTime(bool isIntensiveUse)
+        public override void PerformAction(string action)
         {
-            int hoursOfUse;
-            if (isIntensiveUse)
-            {
-                hoursOfUse = (BatteryCapacity >= 5000) ? 4 : 16;
-            }
-            else
-            {
-                hoursOfUse = (BatteryCapacity >= 5000) ? 12 : 48;
-            }
-
-            RaiseDeviceStatusChanged($"The device will last for {hoursOfUse} hours of use.");
+            if (!IsPowerOn) { Notify("Пристрій вимкнено."); return; }
+            Notify($"Виконується дія: {action}");
         }
     }
 }
