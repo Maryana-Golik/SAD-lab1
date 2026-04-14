@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SAD-lab1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34ae74961a1b0d3a052988753913886b747d8429")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed416b07b7f1d45c6a4efcd2225cd531ef27d845")]
 [assembly: System.Reflection.AssemblyProductAttribute("SAD-lab1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SAD-lab1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

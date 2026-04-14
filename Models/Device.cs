@@ -8,17 +8,17 @@ namespace SAD_lab1.Models
         public bool IsConnectedToNetwork { get; set; }
         public bool IsExternalDevicesConnected { get; set; }
 
-        // Подія для сповіщення про зміни стану пристрою
+       
         public event Action<string> OnDeviceStatusChanged = delegate { };
 
-        // Конструктор для ініціалізації значень
+        
         public Device(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name), "Name cannot be null");
-            OnDeviceStatusChanged = delegate { }; // Ініціалізація події
+            OnDeviceStatusChanged = delegate { }; 
         }
 
-        // Метод для включення пристрою
+       
         public virtual void TurnOn()
         {
             if (IsSoftwareInstalled && IsConnectedToNetwork && IsExternalDevicesConnected)
@@ -32,14 +32,14 @@ namespace SAD_lab1.Models
             }
         }
 
-        // Метод для вимкнення пристрою
+       
         public virtual void TurnOff()
         {
             IsPowerOn = false;
             RaiseDeviceStatusChanged($"{Name} is now OFF.");
         }
 
-        // Метод для використання пристрою
+        
         public virtual void Use()
         {
             if (IsPowerOn)
@@ -52,7 +52,7 @@ namespace SAD_lab1.Models
             }
         }
 
-        // Метод для виклику події зміни статусу
+        
         protected void RaiseDeviceStatusChanged(string message)
         {
             OnDeviceStatusChanged?.Invoke(message);

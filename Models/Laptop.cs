@@ -4,9 +4,9 @@ namespace SAD_lab1.Models
     {
         public Laptop(string name, int batteryCapacity) : base(name, batteryCapacity)
         {
-            IsSoftwareInstalled = true;  // Встановлене ПЗ за умовчанням
-            IsConnectedToNetwork = true;  // Підключення до мережі
-            IsExternalDevicesConnected = true;  // Підключені зовнішні пристрої
+            IsSoftwareInstalled = true;  
+            IsConnectedToNetwork = true; 
+            IsExternalDevicesConnected = true;  
         }
 
         public override void Use()
