@@ -2,18 +2,8 @@ namespace SAD_lab1.Models
 {
     public class Tablet : BatteryDevice
     {
-        public Tablet(string name, int batteryCapacity) : base(name, batteryCapacity)
-        {
-            IsSoftwareInstalled = true; 
-            IsConnectedToNetwork = true; 
-            IsExternalDevicesConnected = true; 
-        }
+        public Tablet(string name, int capacity) : base(name, capacity) { }
 
-
-        public override void Use()
-        {
-            base.Use();
-            RaiseDeviceStatusChanged($"{Name} is used for watching videos, browsing, and gaming.");
-        }
+        public void WatchVideo() => Notify($"{Name} відтворює відео у високій якості...");
     }
 }

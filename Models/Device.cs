@@ -10,7 +10,8 @@ namespace SAD_lab1.Models
         public bool IsConnectedToNetwork { get; set; }
 
 
-        public event EventHandler<DeviceEventArgs> StatusChanged;
+
+public event EventHandler<DeviceEventArgs>? StatusChanged;
 
         public Device(string name) => Name = name;
 
